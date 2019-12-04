@@ -20,15 +20,24 @@ We implement the parallel version of PWPL by modifying the constructIndex functi
 
 # Running PWPL
 The input original graph data is a directed weighted graph. See the sample format of graph.txt for details.
+
 g ++ compiler: g ++ 7.3.0
+
 Server: Linux 2.6.32-220.el6.x86_64
+
 Instructions:
 $ make // Used to build the program
+
 $ bin / normalquery graph.txt // Run the modified Dijkstra algorithm directly on the original graph, and then enter the vertices s and t to query the shortest path distance.
+
 $ bin / construct_index graph.txt graph.idx // Build the index graph.idx for graph.txt.
+
 $ bin / query_distance graph.idx // The widest path pruning index is constructed, and then enter the vertices s and t to query the widest path distance
+
 $ bin / pll_benchmark graph.idx // index algorithm 100w random node access query widest path width, output average query time
+
 $ bin / normal_benchmark graph.txt // 1000 times MDijkstra random node access to query the widest path width, output the average query time
+
 $ make clean // The program to clear the bin directory
 
 # Author and Copyright
