@@ -18,3 +18,20 @@ The naïve way to obtain 2-hop cover index is conducting MDijkstra on each verte
 # Design of parallel PWPL
 We implement the parallel version of PWPL by modifying the constructIndex function and PMDijkstra function in the "pwpl_widestpath.h". In the original PWPL we just start one thread to construct index. In the parallel PWPL, we start n threads to construct Index where n is the number of cpu cores of this machine. At the same time, we assign different threads with the vertices that need to be performed according to the precalculated execution order. For an example, if there are two threads and eight vertices in all. The precalculated execution order is v1, v2, v3, v4, v5, v6, v7, v8. We assign v1, v3, v5, v7 to first thread and v2, v4, v6, v8 to second thread. Although the parallel threads may disrupt the vertices order of PMDijkstra algorithm, which will affect he performance of PWPL, we can set the thread level vertices order statically as v1, v3, v5, v7 or dynamically assign the vertices for different threads to approximately control vertices order compared to original PWPL.
 
+# Running PWPL
+The input original graph data is a directed weighted graph. See the sample format of graph.txt for details.
+g ++ compiler: g ++ 7.3.0
+Server: Linux 2.6.32-220.el6.x86_64
+Instructions:
+$ make // Used to build the program
+$ bin / normalquery graph.txt // Run the modified Dijkstra algorithm directly on the original graph, and then enter the vertices s and t to query the shortest path distance.
+$ bin / construct_index graph.txt graph.idx // Build the index graph.idx for graph.txt.
+$ bin / query_distance graph.idx // The widest path pruning index is constructed, and then enter the vertices s and t to query the widest path distance
+$ bin / pll_benchmark graph.idx // index algorithm 100w random node access query widest path width, output average query time
+$ bin / normal_benchmark graph.txt // 1000 times MDijkstra random node access to query the widest path width, output the average query time
+$ make clean // The program to clear the bin directory
+
+# Author and Copyright
+PWPL is developed in Cluster and Grid Computing Lab, Services Computing Technology and System Lab, Big Data Technology and System Lab, School of Computer Science and Technology, Huazhong University of Science and Technology, Wuhan, China by Rui Pan(ruipan@hust.edu.cn), Hanhua Chen (chen@hust.edu.cn), Wangcheng Zhang(wangczhang@hust.edu.cn), Hai Jin (hjin@hust.edu.cn).
+
+Copyright (C) 2019, STCS & CGCL and Huazhong University of Science and Technology.
