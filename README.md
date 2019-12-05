@@ -35,7 +35,7 @@ $ bin / normalquery graph.txt // Run the modified Dijkstra algorithm directly on
 
 $ bin / construct_index graph.txt graph.idx // Build the index graph.idx for graph.txt.
 
-$ bin / query_distance graph.idx // The widest path pruning index is constructed, and then enter the vertices s and t to query the widest path distance
+$ bin / query_width graph.idx // The widest path pruning index is constructed, and then enter the vertices s and t to query the widest path distance
 
 $ bin / pll_benchmark graph.idx // index algorithm 100w random node access query widest path width, output average query time
 
